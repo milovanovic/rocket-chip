@@ -1,8 +1,9 @@
 Demonstration of error when generating AXI4 pins
-=====================
-This repository is fork of rocket-chip. Only difference is added module that contains single AXI4 memory mapped register [TEST_CODE.scala](src/main/scala/TEST_HERE/TEST_CODE.scala) and [Node.scala](src/main/scala/TEST_HERE/Node.scala) file which is obtained from [here](https://github.com/ucb-bar/rocket-dsp-utils/blob/master/src/main/scala/freechips/rocketchip/amba/axi4/Node.scala). Both files can be found in `/src/main/scala/TEST_HERE` folder.
+================================================
 
-Code compilation fails for rocket-chip commit `9a2d27b` (this branch is fork of this commit). For previous commits, code compiles sucessfully. Please see branch: [`RegisterRouter`](https://github.com/milovanovic/rocket-chip/tree/RegisterRouter).
+This repository is a fork of rocket-chip. The only difference is the added module that contains a single AXI4 memory mapped register [TEST_CODE.scala](src/main/scala/TEST_HERE/TEST_CODE.scala) and [Node.scala](src/main/scala/TEST_HERE/Node.scala) file which is obtained from [here](https://github.com/ucb-bar/rocket-dsp-utils/blob/master/src/main/scala/freechips/rocketchip/amba/axi4/Node.scala). Both files can be found inside `/src/main/scala/TEST_HERE` directory.
+
+The code compilation/build fails for rocket-chip commit `9a2d27b` (this branch is a fork of this commit). For previous commits, the code builds sucessfully. Please see a branch: [`RegisterRouter`](https://github.com/milovanovic/rocket-chip/edit/RegisterRouter).
 
 The error reported is:
 ```scala
@@ -23,10 +24,9 @@ The error reported is:
 [error]         at axi4test.AXI4TestBlockApp$.$anonfun$new$2(TEST_CODE.scala:45)
 [error]         at ... ()
 [error] Nonzero exit code: 1
-
 ```
 
-And it seems that error is due to the Wire of Wire in [RegisterRouter](https://github.com/chipsalliance/rocket-chip/blob/25e2c63/src/main/scala/amba/axi4/RegisterRouter.scala) or more concisely:
+It seems that error is due to the `Wire` of `Wire` in [RegisterRouter](https://github.com/chipsalliance/rocket-chip/blob/25e2c63/src/main/scala/amba/axi4/RegisterRouter.scala) or more concisely:
 
 ```scala
 ...
@@ -36,20 +36,19 @@ And it seems that error is due to the Wire of Wire in [RegisterRouter](https://g
 ...
 ```
 
-From the part of the linked code, it can be seen that ar_extra is Wire(Wire(...)) and it looks like that this is the reason for the error. Unfortunatelly, removing the additional Wire in lines 42 and 43 solves this problem but generates additional ones.
+From the above code snippet it can be seen that `ar_extra` is `Wire(Wire(...))` and it looks like that this is the reason for the error. Unfortunatelly, removing the additional `Wire` in lines 42 and 43 solves this problem but makes another one.
 
 ## Reproducing error
 
-In order to start verilog generation run script:
+In order to start Verilog generation run the script:
 ```bash
 $ ./RUNME.sh
 ```
-Or in command line type:
+Or in the command line just type:
 ```bash
 $ sbt "runMain axi4test.AXI4TestBlockApp"
 ```
 
-## Example of verilog code sucessfully generated:
-Please see branch: [`RegisterRouter`](https://github.com/milovanovic/rocket-chip/tree/RegisterRouter) .
+## Example of Verilog code sucessfully generated:
 
-
+Please see branch: [`RegisterRouter`](https://github.com/milovanovic/rocket-chip/edit/RegisterRouter) .
