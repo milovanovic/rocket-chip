@@ -3,7 +3,7 @@ Demonstration of error when generating AXI4 pins
 
 This repository is a fork of rocket-chip. The only difference is the added module that contains a single AXI4 memory mapped register [TEST_CODE.scala](src/main/scala/TEST_HERE/TEST_CODE.scala) and [Node.scala](src/main/scala/TEST_HERE/Node.scala) file which is obtained from [here](https://github.com/ucb-bar/rocket-dsp-utils/blob/master/src/main/scala/freechips/rocketchip/amba/axi4/Node.scala). Both files can be found inside `/src/main/scala/TEST_HERE` directory.
 
-The code compilation/build fails for rocket-chip commit `9a2d27b` (this branch is a fork of this commit). For previous commits, the code builds sucessfully. Please see a branch: [`RegisterRouter`](https://github.com/milovanovic/rocket-chip/edit/RegisterRouter).
+The code compilation/build fails for rocket-chip commit `9a2d27b` (this branch is a fork of this commit). For previous commits, the code builds sucessfully. Please see a branch: [`RegisterRouter`](https://github.com/milovanovic/rocket-chip/tree/RegisterRouter).
 
 The error reported is:
 ```scala
@@ -51,4 +51,4 @@ $ sbt "runMain axi4test.AXI4TestBlockApp"
 
 ## Example of Verilog code sucessfully generated:
 
-Please see branch: [`RegisterRouter`](https://github.com/milovanovic/rocket-chip/edit/RegisterRouter) .
+Please see branch: [`RegisterRouter`](https://github.com/milovanovic/rocket-chip/tree/RegisterRouter) .
